@@ -8,10 +8,20 @@ const app = express();
 app.get("/", (req, res) => {
   res.send("Backend is live!");
 });
+const allowedOrigins = [
+  "https://meraguen-charity-frontend.netlify.app", // Production
+  "http://localhost:3000", // Local development
+];
+
 app.use(
   cors({
-    origin: "https://meraguen-charity-frontend.netlify.app/",
-
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
   })
 );
 // app.use((req, res) => {
