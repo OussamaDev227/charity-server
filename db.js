@@ -5,19 +5,21 @@ const pool = new Pool({
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  port: 5432, // Default PostgreSQL port
-  ssl: { rejectUnauthorized: false }, // Required for Koyeb's PostgreSQL
+  port: 5432,
+  ssl: { rejectUnauthorized: false },
 });
 
 // Initialize database schema
 const initDatabase = async () => {
   try {
     await pool.query(`
+      CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
       CREATE TABLE IF NOT EXISTS members (
         id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
         name TEXT NOT NULL
       );
-      
+
       CREATE TABLE IF NOT EXISTS payments (
         id SERIAL PRIMARY KEY,
         member_id UUID REFERENCES members(id) ON DELETE CASCADE,
@@ -26,7 +28,7 @@ const initDatabase = async () => {
         year INTEGER NOT NULL,
         UNIQUE (member_id, month, year)
       );
-      
+
       CREATE TABLE IF NOT EXISTS yearly_extras (
         id SERIAL PRIMARY KEY,
         year INTEGER UNIQUE NOT NULL,

@@ -6,6 +6,9 @@ const { pool } = require("../db");
 router.get("/", async (req, res) => {
   const { year } = req.query;
   try {
+    console.log("Fetching members for year:", year); // Log the year
+
+    // Query to fetch members and their payments
     const result = await pool.query(
       `
       SELECT 
@@ -20,16 +23,14 @@ router.get("/", async (req, res) => {
       `,
       [year]
     );
-    res.json({
-      members: result.rows,
-      yearlyExtra: result.rows[0]?.yearly_extra || 0,
-    });
+
+    console.log("Query result:", result.rows); // Log the query result
+    res.json({ members: result.rows, yearlyExtra: result.rows[0]?.yearly_extra || 0 });
   } catch (err) {
-    console.error("Error fetching members:", err);
+    console.error("Error fetching members:", err); // Log the full error
     res.status(500).json({ error: "Failed to fetch members" });
   }
 });
-
 // Add a new member
 router.post("/", async (req, res) => {
   const { name } = req.body;
