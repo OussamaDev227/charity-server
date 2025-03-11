@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "https://your-frontend.com",
+    origin: "https://meraguen-charity-frontend.netlify.app/",
     credentials: true,
   })
 );
