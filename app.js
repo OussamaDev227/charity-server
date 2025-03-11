@@ -10,7 +10,8 @@ app.get("/", (req, res) => {
 });
 const allowedOrigins = [
   "https://meraguen-charity-frontend.netlify.app", // Production
-  "http://localhost:3000", // Local development
+  "https://meraguen-charity2-frontend.netlify.app", // Production
+  "http://localhost:5173/", // Local development
 ];
 
 app.use(
