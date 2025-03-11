@@ -1,6 +1,6 @@
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
-const dbPath = path.join(__dirname, "charity.db");
+const dbPath = path.join(__dirname, "charity.db"); // Relative to backend root
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) console.error("Error opening SQLite database:", err);
   else console.log("Connected to SQLite database");
