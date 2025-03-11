@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 });
 app.use(
   cors({
-    origin: "https://meraguen-charity-frontend.netlify.app",
+    origin: "https://meraguen-charity-frontend.netlify.app/",
   })
 );
 app.use((req, res) => {
