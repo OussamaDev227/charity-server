@@ -11,6 +11,7 @@ app.get("/", (req, res) => {
 app.use(
   cors({
     origin: "https://meraguen-charity-frontend.netlify.app/",
+
   })
 );
 // app.use((req, res) => {
@@ -19,5 +20,9 @@ app.use(
 app.use(express.json());
 
 app.use("/api/members", membersRouter);
+app.get("/api/members", (req, res) => {
+  // Example logic
+  res.json({ members: [], yearlyExtra: 0 });
+});
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
